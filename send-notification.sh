@@ -60,7 +60,7 @@ else # Message lu de STDIN
     do
         MESSAGE_TO_SEND="$MESSAGE_TO_SEND$line\n"
     done
-    MESSAGE_TO_SEND=$(echo $MESSAGE_TO_SEND | sed 's/\n$//') # Retire le dernier saut de ligne
+    MESSAGE_TO_SEND=${MESSAGE_TO_SEND%"\n"} # Retire le dernier saut de ligne
 fi
 
 FINAL_MESSAGE_TO_SEND="$MESSAGE_HEADER$MESSAGE_TO_SEND$MESSAGE_FOOTER" # Assemble header, message et footer
