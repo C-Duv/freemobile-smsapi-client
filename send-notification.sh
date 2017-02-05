@@ -39,10 +39,13 @@ USER_LOGIN="1234567890"
 API_KEY="s0me5eCre74p1K3y"
 
 # Texte qui sera ajouté AVANT chaque message envoyé
-MESSAGE_HEADER="Notification :${NEWLINE_CHAR}"
+MESSAGE_HEADER="Notification :
+"
 
 # Texte qui sera ajouté APRÈS chaque message envoyé
-MESSAGE_FOOTER="${NEWLINE_CHAR}--${NEWLINE_CHAR}Le serveur de la maison"
+MESSAGE_FOOTER="
+--
+Le serveur de la maison"
 
 
 ##
@@ -55,9 +58,9 @@ if [ "$1" ]; then # Message en tant qu'argument de la ligne de commande
 else # Message lu de STDIN
     while read line
     do
-        MESSAGE_TO_SEND="$MESSAGE_TO_SEND$line$NEWLINE_CHAR"
+        MESSAGE_TO_SEND="$MESSAGE_TO_SEND$line\n"
     done
-    MESSAGE_TO_SEND=$(echo $MESSAGE_TO_SEND | sed 's/'$NEWLINE_CHAR'$//') # Retire le dernier saut de ligne
+    MESSAGE_TO_SEND=${MESSAGE_TO_SEND%"\n"} # Retire le dernier saut de ligne
 fi
 
 FINAL_MESSAGE_TO_SEND="$MESSAGE_HEADER$MESSAGE_TO_SEND$MESSAGE_FOOTER" # Assemble header, message et footer
@@ -67,6 +70,11 @@ FINAL_MESSAGE_TO_SEND="$MESSAGE_HEADER$MESSAGE_TO_SEND$MESSAGE_FOOTER" # Assembl
 ##
 
 # echo "Will send the following to $USER_LOGIN:" #DEBUG
+# echo "$FINAL_MESSAGE_TO_SEND" #DEBUG
+
+# Converts newlines to $NEWLINE_CHAR
+FINAL_MESSAGE_TO_SEND=$(echo -n "$FINAL_MESSAGE_TO_SEND" | sed '{:q;N;s/\n/'$NEWLINE_CHAR'/g;t q}')
+# echo "Newline encoded message:" #DEBUG
 # echo "$FINAL_MESSAGE_TO_SEND" #DEBUG
 
 # --insecure : Certificat de $SMSAPI_BASEURL ne fourni pas d'informations sur son propriétaire
