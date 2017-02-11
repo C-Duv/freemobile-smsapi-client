@@ -12,6 +12,14 @@
 
 
 readonly PROGNAME=$(basename $0)
+readonly PROGDIR=$(readlink -m $(dirname $0))
+
+usage_error () {
+    echo "ERROR: ${1}" >&2
+    echo ""
+    usage_help
+    exit 1
+}
 
 usage_help () {
     echo "Possible usages:"
@@ -19,11 +27,15 @@ usage_help () {
     echo "* echo \"All your base are belong to us\" | ${PROGNAME} [options]"
     echo ""
     echo "Options:"
+    echo "* -c file    specify configuration file"
     echo "* -h         display this help"
 }
 
-while getopts "h" option; do
+CONFIG_FILE=""
+while getopts "c:h" option; do
     case "$option" in
+        c) CONFIG_FILE=${OPTARG} ;;
+        :) usage_error "Invalid arguments" ;;
         h) usage_help ; exit 0 ;;
     esac
 done
@@ -64,6 +76,40 @@ MESSAGE_HEADER="Notification :
 MESSAGE_FOOTER="
 --
 Le serveur de la maison"
+
+
+##
+## Fichier de configuration
+##
+
+if [ -n "${CONFIG_FILE}" ]; then
+    if [ -e "${CONFIG_FILE}" ]; then
+        . "./${CONFIG_FILE}"
+    else
+        echo "ERROR: Configuration file \"${CONFIG_FILE}\" does not exists." >&2
+        exit 2
+    fi
+else
+    if [ -e "${PROGDIR}/.freemobile-smsapi" ]; then
+        . "${PROGDIR}/.freemobile-smsapi"
+    elif [ -e "${HOME}/.freemobile-smsapi" ]; then
+        . "${HOME}/.freemobile-smsapi"
+    fi
+fi
+
+##
+## Vérifications des paramètres requis
+##
+
+if [ -z "${USER_LOGIN}" ] \
+    || [ -z "${API_KEY}" ] \
+    || [ -z "${SMSAPI_BASEURL}" ] \
+    || [ -z "${SMSAPI_SEND_ACTION}" ] \
+; then
+    echo "ERROR: Either USER_LOGIN, API_KEY, SMSAPI_BASEURL or " \
+         "SMSAPI_SEND_ACTION is not set" >&2
+    exit 2
+fi
 
 
 ##
