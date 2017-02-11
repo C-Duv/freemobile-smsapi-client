@@ -39,6 +39,7 @@ while getopts "c:h" option; do
         h) usage_help ; exit 0 ;;
     esac
 done
+shift $((OPTIND-1))
 
 
 ##
@@ -84,7 +85,7 @@ Le serveur de la maison"
 
 if [ -n "${CONFIG_FILE}" ]; then
     if [ -e "${CONFIG_FILE}" ]; then
-        . "./${CONFIG_FILE}"
+        . "${CONFIG_FILE}"
     else
         echo "ERROR: Configuration file \"${CONFIG_FILE}\" does not exists." >&2
         exit 2
@@ -96,6 +97,7 @@ else
         . "${HOME}/.freemobile-smsapi"
     fi
 fi
+
 
 ##
 ## Vérifications des paramètres requis
