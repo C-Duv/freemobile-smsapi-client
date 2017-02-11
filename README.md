@@ -25,11 +25,13 @@ See `send-notification.sh -h`.
 
 Script can be configured 
 Edit `send-notification.sh` and set the following variables:
+* `USER_LOGIN`: The login to use the API.
+* `API_KEY`: The secret key associated to `USER_LOGIN`.
+* `MESSAGE_HEADER` (Optional): Will be prepended to all the messages.
+* `MESSAGE_FOOTER` (Optional): Will be appended to all the messages.
+* `NEWLINE_CHAR` (Optional): Char to use to create a new line (it depends on
+  receiving terminal).
 
-* `USER_LOGIN`
-* `API_KEY`
-* `MESSAGE_HEADER` (Optional)
-* `MESSAGE_FOOTER` (Optional)
 
 PHP Client
 ----------
