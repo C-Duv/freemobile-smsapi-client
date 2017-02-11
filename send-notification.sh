@@ -1,13 +1,13 @@
 #!/bin/sh
 
-# 
+#
 # Script d'envoi de notification SMS via l'API Free Mobile
 # https://github.com/C-Duv/freemobile-smsapi-client
-# 
+#
 # Auteur: DUVERGIER Claude (http://claude.duvergier.fr)
-# 
+#
 # Nécessite: sed, sh et wget
-# 
+#
 # Possible usages:
 #   send-notification.sh "All your base are belong to us"
 #   echo "All your base are belong to us" | send-notification.sh
@@ -90,7 +90,7 @@ FINAL_MESSAGE_TO_SEND=$(\
 #       --insecure
 # * Renvoi le code réponse HTTP uniquement :
 #       --write-out "%{http_code}" --silent --output /dev/null
-#                                                          
+#
 HTTP_STATUS_CODE=$(\
     curl \
         --insecure \
