@@ -39,15 +39,15 @@ script at runtime (`send-notification.sh -c foobar`).
 
 Configuration load process is as follows:
 
-# Uses what's in `send-notification.sh` file.
-# If `-c` option is set, test given file existence and uses what's inside.
-  Will not load any other configuration file (stops load process here).
-# Checks if a `.freemobile-smsapi` file exists next to the script and uses
-  what's inside. Will not load any other configuration file (stops load process
-  here).
-# Checks if a `.freemobile-smsapi` file exists in user's home directory
-  (`${HOME}`) and uses what's inside. Will not load any other configuration file
-  (stops load process here).
+1. Uses what's in `send-notification.sh` file.
+2. If `-c` option is set, test given file existence and uses what's inside.
+   Will not load any other configuration file (stops load process here).
+3. Checks if a `.freemobile-smsapi` file exists next to the script and uses
+   what's inside. Will not load any other configuration file (stops load process
+   here).
+4. Checks if a `.freemobile-smsapi` file exists in user's home directory
+   (`${HOME}`) and uses what's inside. Will not load any other configuration
+   file (stops load process here).
 
 
 PHP Client
