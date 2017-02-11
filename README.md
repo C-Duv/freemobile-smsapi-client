@@ -16,11 +16,14 @@ send-notification.sh "All your base are belong to us"
 ```
 
 ```
-    uptime | send-notification.sh
+uptime | send-notification.sh
 ```
+
+See `send-notification.sh -h`.
 
 ### Configuration :
 
+Script can be configured 
 Edit `send-notification.sh` and set the following variables:
 
 * `USER_LOGIN`

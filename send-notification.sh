@@ -8,10 +8,25 @@
 #
 # Nécessite: sed, sh et wget
 #
-# Possible usages:
-#   send-notification.sh "All your base are belong to us"
-#   echo "All your base are belong to us" | send-notification.sh
-#   uptime | send-notification.sh
+# Possible usages: see usage_help()
+
+
+readonly PROGNAME=$(basename $0)
+
+usage_help () {
+    echo "Possible usages:"
+    echo "* ${PROGNAME} [options] [message]"
+    echo "* echo \"All your base are belong to us\" | ${PROGNAME} [options]"
+    echo ""
+    echo "Options:"
+    echo "* -h         display this help"
+}
+
+while getopts "h" option; do
+    case "$option" in
+        h) usage_help ; exit 0 ;;
+    esac
+done
 
 
 ##
