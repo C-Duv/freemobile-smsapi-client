@@ -1,6 +1,5 @@
 #!/bin/sh
 
-#
 # Script d'envoi de notification SMS via l'API Free Mobile
 # https://github.com/C-Duv/freemobile-smsapi-client
 #
@@ -70,13 +69,10 @@ USER_LOGIN="1234567890"
 API_KEY="s0me5eCre74p1K3y"
 
 # Texte qui sera ajouté AVANT chaque message envoyé
-MESSAGE_HEADER="Notification :
-"
+MESSAGE_HEADER="Notification :${NEWLINE_CHAR}"
 
 # Texte qui sera ajouté APRÈS chaque message envoyé
-MESSAGE_FOOTER="
---
-Le serveur de la maison"
+MESSAGE_FOOTER="${NEWLINE_CHAR}--${NEWLINE_CHAR}Le serveur de la maison"
 
 
 ##
@@ -147,16 +143,12 @@ FINAL_MESSAGE_TO_SEND=$(\
 # echo "Newline encoded message:" #DEBUG
 # echo "${FINAL_MESSAGE_TO_SEND}" #DEBUG
 
-# Particularités de l'appel de curl et la/les options associées :
-# * Le certificat de $SMSAPI_BASEURL ne fourni pas d'informations sur son
-#   propriétaire :
-#       --insecure
+# Particularités de l'appel de curl et son option associée :
 # * Renvoi le code réponse HTTP uniquement :
 #       --write-out "%{http_code}" --silent --output /dev/null
 #
 HTTP_STATUS_CODE=$(\
     curl \
-        --insecure \
         --write-out "%{http_code}" \
         --silent \
         --output /dev/null \
