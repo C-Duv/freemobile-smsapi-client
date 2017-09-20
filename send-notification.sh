@@ -69,13 +69,10 @@ USER_LOGIN="1234567890"
 API_KEY="s0me5eCre74p1K3y"
 
 # Texte qui sera ajouté AVANT chaque message envoyé
-MESSAGE_HEADER="Notification :
-"
+MESSAGE_HEADER="Notification :${NEWLINE_CHAR}"
 
 # Texte qui sera ajouté APRÈS chaque message envoyé
-MESSAGE_FOOTER="
---
-Le serveur de la maison"
+MESSAGE_FOOTER="${NEWLINE_CHAR}--${NEWLINE_CHAR}Le serveur de la maison"
 
 
 ##
