@@ -148,15 +148,11 @@ FINAL_MESSAGE_TO_SEND=$(\
 # echo "${FINAL_MESSAGE_TO_SEND}" #DEBUG
 
 # Particularités de l'appel de curl et la/les options associées :
-# * Le certificat de $SMSAPI_BASEURL ne fourni pas d'informations sur son
-#   propriétaire :
-#       --insecure
 # * Renvoi le code réponse HTTP uniquement :
 #       --write-out "%{http_code}" --silent --output /dev/null
 #
 HTTP_STATUS_CODE=$(\
     curl \
-        --insecure \
         --write-out "%{http_code}" \
         --silent \
         --output /dev/null \
