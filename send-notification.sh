@@ -10,6 +10,7 @@
 #
 # Possible usages: see usage_help()
 
+set -eu
 
 readonly PROGNAME=$(basename $0)
 readonly PROGDIR=$(readlink -m $(dirname $0))
@@ -119,7 +120,7 @@ fi
 ##
 
 MESSAGE_TO_SEND=""
-if [ "${1}" ]; then # Message en tant qu'argument de la ligne de commande
+if [ $# -ge 1 ] && [ "${1}" ]; then # Message en tant qu'argument de la ligne de commande
     MESSAGE_TO_SEND="${1}"
 else # Message lu de STDIN
     while read line
