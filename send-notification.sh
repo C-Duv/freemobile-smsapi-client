@@ -6,7 +6,7 @@
 #
 # Auteur: DUVERGIER Claude (http://claude.duvergier.fr)
 #
-# Nécessite: sed, sh et wget
+# Nécessite: sh et wget
 #
 # Possible usages: see usage_help()
 
@@ -140,14 +140,6 @@ FINAL_MESSAGE_TO_SEND="${MESSAGE_HEADER}${MESSAGE_TO_SEND}${MESSAGE_FOOTER}"
 # echo "Will send the following to ${USER_LOGIN}:" #DEBUG
 # echo "${FINAL_MESSAGE_TO_SEND}" #DEBUG
 
-# Converts newlines to $NEWLINE_CHAR
-FINAL_MESSAGE_TO_SEND=$(\
-    echo -n "${FINAL_MESSAGE_TO_SEND}" | \
-    sed '{:q;N;s/\n/'${NEWLINE_CHAR}'/g;t q}'\
-)
-# echo "Newline encoded message:" #DEBUG
-# echo "${FINAL_MESSAGE_TO_SEND}" #DEBUG
-
 # Particularités de l'appel de curl et la/les options associées :
 # * Renvoi le code réponse HTTP uniquement :
 #       --write-out "%{http_code}" --silent --output /dev/null
@@ -160,7 +152,7 @@ HTTP_STATUS_CODE=$(\
         --get "${SMSAPI_BASEURL}/${SMSAPI_SEND_ACTION}" \
         --data "user=${USER_LOGIN}" \
         --data "pass=${API_KEY}" \
-        --data "msg=${FINAL_MESSAGE_TO_SEND}" \
+        --data-urlencode "msg=${FINAL_MESSAGE_TO_SEND}" \
 )
 
 # Codes réponse HTTP possibles
