@@ -13,7 +13,7 @@
 set -eu
 
 readonly PROGNAME=$(basename $0)
-readonly PROGDIR=$(readlink -m $(dirname $0))
+readonly PROGDIR=$(dirname "$(readlink "$0" || echo "$(echo "$0" | sed -e 's,\\,/,g')")")
 
 usage_error () {
     echo "ERROR: ${1}" >&2
